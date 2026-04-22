@@ -1,5 +1,4 @@
 #![allow(clippy::missing_safety_doc)]
-
 // This file is part of the uutils coreutils package.
 //
 // (c) Jordy Dickinson <jordy.dickinson@gmail.com>
@@ -1291,6 +1290,7 @@ fn copy_file(source: &Path, dest: &Path, options: &Options) -> CopyResult<()> {
     };
 
     // TODO: implement something similar to gnu's lchown
+    #[cfg(not(target_vendor = "wasmer"))]
     if fs::symlink_metadata(&dest)
         .map(|meta| !meta.file_type().is_symlink())
         .unwrap_or(false)
