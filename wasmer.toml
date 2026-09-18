@@ -1,0 +1,636 @@
+# Generated from the multi-call binary's own command list:
+#   wasmer run target/wasm32-wasmer-wasi/release/coreutils.wasm -- --list
+# Regenerate whenever the enabled utility set changes.
+
+[package]
+name = "wasmer/coreutils"
+version = "1.1.0"
+license = "MIT"
+
+[[module]]
+name = "coreutils"
+source = "./target/wasm32-wasmer-wasi/release/coreutils.wasm"
+
+[[command]]
+name = "["
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "arch"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "b2sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "base32"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "base64"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "basename"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "basenc"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "cat"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "cksum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "comm"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "cp"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "csplit"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "cut"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "date"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "dd"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "dir"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "dircolors"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "dirname"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "echo"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "expand"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "expr"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "factor"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "false"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "fmt"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "fold"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "head"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "hostid"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "join"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "link"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "ln"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "ls"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "md5sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "mkdir"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "mktemp"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "mv"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "nice"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "nl"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "numfmt"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "od"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "paste"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "pathchk"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "pr"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "printenv"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "printf"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "ptx"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "pwd"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "readlink"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "realpath"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "rm"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "rmdir"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "seq"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sha1sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sha224sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sha256sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sha384sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sha512sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "shred"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "shuf"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sleep"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sort"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "split"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "sum"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "tail"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "tee"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "test"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "touch"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "tr"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "true"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "truncate"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "tsort"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "tty"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "uname"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "unexpand"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "uniq"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "unlink"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "vdir"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "wc"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
+
+[[command]]
+name = "yes"
+module = "coreutils"
+runner = "https://webc.org/runner/wasi"
+
+[command.annotations.wasi]
+atom = "coreutils"
