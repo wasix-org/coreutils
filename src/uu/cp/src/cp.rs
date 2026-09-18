@@ -1949,8 +1949,19 @@ pub(crate) fn copy_attributes(
             #[cfg(not(unix))]
             let source_perms = source_metadata.permissions();
 
-            fs::set_permissions(dest, source_perms)
-                .map_err(|e| CpError::IoErrContext(e, context.to_owned()))?;
+            match fs::set_permissions(dest, source_perms) {
+                Ok(()) => {}
+                // WASIX (and WASI generally) has no chmod(2), so std returns
+                // `Unsupported` here. Mode simply cannot be preserved; failing
+                // the copy over it would make `cp -a` unusable and make plain
+                // `cp -r` emit an error per directory, even though the file
+                // contents copied fine. Skip it the same way `mkdir` ignores
+                // `--mode` on non-unix. Only `Unsupported` is tolerated, so if
+                // WASIX gains chmod this starts working with no further change.
+                #[cfg(target_os = "wasi")]
+                Err(e) if e.kind() == std::io::ErrorKind::Unsupported => {}
+                Err(e) => return Err(CpError::IoErrContext(e, context.to_owned())),
+            }
             // GNU `cp -p` preserves POSIX ACLs as part of mode. On Linux the
             // ACLs are stored as `system.posix_acl_*` xattrs; copy just those
             // so we keep ACL parity with GNU without preserving user xattrs
