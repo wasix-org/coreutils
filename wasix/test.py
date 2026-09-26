@@ -7,7 +7,7 @@ import tempfile
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / '.wasix/coreutils-1.0.26.webc'
+PACKAGE = ROOT / '.wasix/coreutils-1.0.27.webc'
 WASMER = os.environ.get('WASMER_BIN', 'wasmer')
 
 def run(command, *args, stdin=None, directory=None, packages=()):
@@ -41,6 +41,11 @@ for command in commands:
     assert 'function/utility not found' not in result.stdout + result.stderr
     assert 'panicked at' not in result.stderr
 print(f'PASS all {len(commands)} exported commands dispatch correctly', flush=True)
+
+# License mounts must not prevent command installation under /usr/bin.
+assert '0.13.0' in check('env', '/usr/bin/coreutils', '--version').stdout
+assert 'uutils' in check('cat', '/opt/coreutils/licenses/coreutils-0.13.0/LICENSE').stdout
+print('PASS package license mount and /usr/bin command dispatch', flush=True)
 
 with tempfile.TemporaryDirectory() as tmp:
     directory = Path(tmp)

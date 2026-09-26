@@ -1,7 +1,7 @@
 # coreutils for WASIX
 
 Based on uutils/coreutils main at `a6d1eb3835c0f808fa9678e4551df7377bcab8d3`
-(0.13.0). The Wasmer package version is 1.0.26 to continue the existing
+(0.13.0). The Wasmer package version is 1.0.27 to continue the existing
 `wasmer/coreutils` release series.
 
 Build with Rustup, Python 3.11+, Wasmer 7.4.2, wasm-tools 1.251.0, and the pinned
@@ -33,7 +33,7 @@ comparing WASIX file identities because Wasmer derives inodes from paths.
 Log rotation must happen inside the sandbox; renaming mounted files from
 outside it does not invalidate Wasmer's cached guest metadata.
 
-Artifacts are `.wasix/coreutils.wasm` and `.wasix/coreutils-1.0.26.webc`.
+Artifacts are `.wasix/coreutils.wasm` and `.wasix/coreutils-1.0.27.webc`.
 Dependency license notices are included in the package. The package contains
 no shell wrappers.
 
@@ -42,7 +42,11 @@ For a clean reproducibility check, save the first WebC, set
 compare the two WebCs with `cmp`.
 
 ```sh
-wasmer run .wasix/coreutils-1.0.26.webc --entrypoint tail -- -n 5 /workspace/log
+wasmer run .wasix/coreutils-1.0.27.webc --entrypoint tail -- -n 5 /workspace/log
 wasmer publish . --registry wasmer.io --wait=container --non-interactive
 wasmer publish . --registry wasmer.wtf --wait=container --non-interactive
 ```
+
+Package 1.0.27 stores dependency notices at `/opt/coreutils/licenses`. This keeps
+license mounts out of `/usr`, where they interfere with Wasmer command installation.
+The compiled utility versions are unchanged.

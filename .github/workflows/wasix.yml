@@ -35,18 +35,18 @@ jobs:
       - name: Check reproducibility
         run: |
           cp .wasix/coreutils.wasm .wasix/first.wasm
-          cp .wasix/coreutils-1.0.26.webc .wasix/first.webc
+          cp .wasix/coreutils-1.0.27.webc .wasix/first.webc
           CARGO_TARGET_DIR=.wasix/repro-target bash wasix/build.sh
           cmp .wasix/first.wasm .wasix/coreutils.wasm
-          cmp .wasix/first.webc .wasix/coreutils-1.0.26.webc
-          sha256sum .wasix/coreutils.wasm .wasix/coreutils-1.0.26.webc > .wasix/SHA256SUMS
+          cmp .wasix/first.webc .wasix/coreutils-1.0.27.webc
+          sha256sum .wasix/coreutils.wasm .wasix/coreutils-1.0.27.webc > .wasix/SHA256SUMS
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: coreutils-wasix-1.0.26
+          name: coreutils-wasix-1.0.27
           include-hidden-files: true
           path: |
             .wasix/coreutils.wasm
-            .wasix/coreutils-1.0.26.webc
+            .wasix/coreutils-1.0.27.webc
             .wasix/SHA256SUMS
             .wasix/commands.json
             .wasix/provenance.json
