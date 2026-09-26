@@ -1,0 +1,52 @@
+name: WASIX
+on:
+  push:
+    branches: [codex/refresh-wasix]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install pinned tools
+        run: |
+          rustup toolchain install 1.96.1 --profile minimal
+          cargo +1.96.1 install cargo-wasix --version 0.1.33 --locked
+          cargo wasix download-toolchain v2026-07-07.3+rust-1.96
+          ln -s "$(rustup which --toolchain 1.96.1 cargo)" "$(rustc +wasix --print sysroot)/bin/cargo"
+          chmod +x "$(rustc +wasix --print sysroot)"/lib/rustlib/*-unknown-linux-gnu/bin/gcc-ld/*
+          curl -fL https://github.com/wasmerio/wasmer/releases/download/v7.4.2/wasmer-linux-amd64.tar.gz -o /tmp/wasmer.tar.gz
+          echo '07271f7ecf449135bbd44cfe9f38a65e54ab25f1564a9c6bd2d0d5cca5743963  /tmp/wasmer.tar.gz' | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/wasmer"
+          tar -xzf /tmp/wasmer.tar.gz -C "$RUNNER_TEMP/wasmer"
+          echo "$RUNNER_TEMP/wasmer/bin" >> "$GITHUB_PATH"
+          curl -fL https://github.com/bytecodealliance/wasm-tools/releases/download/v1.251.0/wasm-tools-1.251.0-x86_64-linux.tar.gz -o /tmp/wasm-tools.tar.gz
+          echo '08d523676ec71d9afbae05aa4255041ce91bf2d325d87b7e722d190d558be689  /tmp/wasm-tools.tar.gz' | sha256sum -c -
+          tar -xzf /tmp/wasm-tools.tar.gz -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/wasm-tools-1.251.0-x86_64-linux" >> "$GITHUB_PATH"
+      - name: Build and test every command
+        run: |
+          bash wasix/build.sh
+          python3 wasix/test.py
+          cargo test --no-default-features --features nohup,tail --test tests test_nohup_ignores_hangup_and_preserves_exit_code
+      - name: Check reproducibility
+        run: |
+          cp .wasix/coreutils.wasm .wasix/first.wasm
+          cp .wasix/coreutils-1.0.26.webc .wasix/first.webc
+          CARGO_TARGET_DIR=.wasix/repro-target bash wasix/build.sh
+          cmp .wasix/first.wasm .wasix/coreutils.wasm
+          cmp .wasix/first.webc .wasix/coreutils-1.0.26.webc
+          sha256sum .wasix/coreutils.wasm .wasix/coreutils-1.0.26.webc > .wasix/SHA256SUMS
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: coreutils-wasix-1.0.26
+          include-hidden-files: true
+          path: |
+            .wasix/coreutils.wasm
+            .wasix/coreutils-1.0.26.webc
+            .wasix/SHA256SUMS
+            .wasix/commands.json
+            .wasix/provenance.json

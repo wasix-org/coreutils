@@ -28,7 +28,7 @@ uucore = { workspace = true, features = [
   "signals",
 ] }
 
-[target.'cfg(not(target_os = "wasi"))'.dependencies]
+[target.'cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))'.dependencies]
 libc = { workspace = true }
 notify = { workspace = true }
 

@@ -1,0 +1,11 @@
+[package]
+name = "wasix-coreutils-tests"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[[bin]]
+name = "test-tail-wasix"
+path = "../../tests/by-util/test_tail_wasix.rs"

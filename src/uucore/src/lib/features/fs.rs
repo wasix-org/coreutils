@@ -845,16 +845,13 @@ pub fn are_hardlinks_or_one_way_symlink_to_same_file(source: &Path, target: &Pat
 pub fn path_ends_with_terminator(path: &Path) -> bool {
     #[cfg(unix)]
     use std::os::unix::prelude::OsStrExt;
-    #[cfg(all(target_os = "wasi", target_env = "p1"))]
-    use std::os::wasi::ffi::OsStrExt;
-
-    #[cfg(all(target_os = "wasi", target_env = "p2"))]
+    #[cfg(target_os = "wasi")]
     return path
         .as_os_str()
         .as_encoded_bytes()
         .last()
         .is_some_and(|&byte| byte == b'/');
-    #[cfg(not(all(target_os = "wasi", target_env = "p2")))]
+    #[cfg(unix)]
     return path
         .as_os_str()
         .as_bytes()
@@ -881,7 +878,10 @@ pub fn path_ends_with_terminator(path: &Path) -> bool {
 ///
 /// * `bool` - Returns `true` if stdin is a directory, `false` otherwise.
 pub fn is_stdin_directory(stdin: &Stdin) -> bool {
-    #[cfg(any(unix, all(target_os = "wasi", target_env = "p2")))]
+    #[cfg(any(
+        unix,
+        all(target_os = "wasi", any(target_env = "p2", target_vendor = "wasmer"))
+    ))]
     {
         use mode::{S_IFDIR, S_IFMT};
         if let Ok(stat) = rustix::fs::fstat(stdin) {

@@ -13,6 +13,8 @@
 // spell-checker:ignore (shell/tools)
 // spell-checker:ignore (misc)
 
+#![cfg_attr(target_vendor = "wasmer", feature(wasi_ext))]
+
 pub mod args;
 pub mod chunks;
 mod follow;

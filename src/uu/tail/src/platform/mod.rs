@@ -15,10 +15,10 @@ pub use self::unix::{
 pub use self::windows::{Pid, ProcessChecker, supports_pid_checks};
 
 // WASI has no process management; provide stubs so tail compiles.
-#[cfg(target_os = "wasi")]
+#[cfg(all(target_os = "wasi", not(target_vendor = "wasmer")))]
 pub type Pid = u64;
 
-#[cfg(target_os = "wasi")]
+#[cfg(all(target_os = "wasi", not(target_vendor = "wasmer")))]
 pub fn supports_pid_checks(_pid: Pid) -> bool {
     false
 }
@@ -28,3 +28,8 @@ mod unix;
 
 #[cfg(windows)]
 mod windows;
+
+#[cfg(target_vendor = "wasmer")]
+mod wasix;
+#[cfg(target_vendor = "wasmer")]
+pub use wasix::{Pid, ProcessChecker, supports_pid_checks};

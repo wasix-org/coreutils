@@ -211,6 +211,7 @@ feat_Tier1 = [
 # "feat_wasm" == set of utilities which can be built for wasm target
 # We don't need to support all of wasm targets. So the ambiguous name is used at here
 feat_wasm = ["feat_common_core", "nproc"]
+feat_wasix = ["feat_wasm", "env", "nohup"]
 # "feat_os_unix" == set of utilities which can be built/run on modern/usual *nix platforms.
 feat_os_unix = [
   "feat_Tier1",
@@ -454,6 +455,7 @@ unexpected_cfgs = { level = "warn", check-cfg = [
   'cfg(pgo_training)',
   'cfg(target_os, values("cygwin"))',
   'cfg(wasi_runner)',
+  'cfg(target_vendor, values("wasmer"))',
 ] }
 unused_qualifications = "warn"
 

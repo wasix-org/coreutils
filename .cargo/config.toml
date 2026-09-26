@@ -14,3 +14,12 @@ rustflags = ["-C", "target-feature=+crt-static"]
 [env]
 # aws-lc is used only for checksum. Reduce binary size
 AWS_LC_SYS_NO_JITTER_ENTROPY = "1"
+
+[http]
+multiplexing = false
+
+[source.crates-io]
+replace-with = "wasix"
+
+[source.wasix]
+registry = "sparse+https://cargo-registry.wasix.org/"

@@ -276,3 +276,12 @@ fn test_nohup_stderr_to_stdout() {
     assert!(content.contains("stdout message"));
     assert!(content.contains("stderr message"));
 }
+
+#[test]
+#[cfg(any(unix, target_vendor = "wasmer"))]
+fn test_nohup_ignores_hangup_and_preserves_exit_code() {
+    new_ucmd!()
+        .args(&["sh", "-c", "kill -HUP $$; echo survived; exit 7"])
+        .fails_with_code(7)
+        .stdout_is("survived\n");
+}

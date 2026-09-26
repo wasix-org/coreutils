@@ -11,8 +11,10 @@ use std::fs::{File, Metadata};
 use std::io::{Seek, SeekFrom};
 #[cfg(unix)]
 use std::os::unix::fs::{FileTypeExt, MetadataExt};
+#[cfg(target_vendor = "wasmer")]
+use std::os::wasi::fs::MetadataExt;
 use std::path::{Path, PathBuf};
-#[cfg(not(target_os = "wasi"))]
+#[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
 use uucore::error::UResult;
 use uucore::quoting_style::{QuotingStyle, locale_aware_escape_name};
 use uucore::translate;
@@ -162,9 +164,9 @@ impl FileExtTail for File {
 
 pub trait MetadataExtTail {
     fn is_tailable(&self) -> bool;
-    #[cfg(not(target_os = "wasi"))]
+    #[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
     fn got_truncated(&self, other: &Metadata) -> UResult<bool>;
-    #[cfg(not(target_os = "wasi"))]
+    #[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
     fn file_id_eq(&self, other: &Metadata) -> bool;
 }
 
@@ -182,16 +184,26 @@ impl MetadataExtTail for Metadata {
     }
 
     /// Return true if the file was modified and is now shorter
-    #[cfg(not(target_os = "wasi"))]
+    #[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
     fn got_truncated(&self, other: &Metadata) -> UResult<bool> {
         Ok(other.len() < self.len() && other.modified()? != self.modified()?)
     }
 
-    #[cfg(not(target_os = "wasi"))]
-    fn file_id_eq(&self, #[cfg(unix)] other: &Metadata, #[cfg(not(unix))] _: &Metadata) -> bool {
+    #[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
+    fn file_id_eq(
+        &self,
+        #[cfg(any(unix, target_vendor = "wasmer"))] other: &Metadata,
+        #[cfg(not(any(unix, target_vendor = "wasmer")))] _: &Metadata,
+    ) -> bool {
         #[cfg(unix)]
         {
             self.ino().eq(&other.ino())
+        }
+        #[cfg(target_vendor = "wasmer")]
+        {
+            // Wasmer derives inode numbers from paths and reports creation
+            // time in ctim. Include it to distinguish a replacement file.
+            self.ino() == other.ino() && self.ctim() == other.ctim()
         }
         #[cfg(windows)]
         {
@@ -209,14 +221,14 @@ impl MetadataExtTail for Metadata {
     }
 }
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
 pub trait PathExtTail {
     fn is_stdin(&self) -> bool;
     fn has_active_parent(&self) -> bool;
     fn is_tailable(&self) -> bool;
 }
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(any(not(target_os = "wasi"), target_vendor = "wasmer"))]
 impl PathExtTail for Path {
     fn is_stdin(&self) -> bool {
         self.eq(Self::new(text::DASH))

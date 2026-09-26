@@ -26,6 +26,9 @@ uucore = { workspace = true, features = ["fs"] }
 libc = { workspace = true }
 rustix = { workspace = true, features = ["stdio"] }
 
+[target.'cfg(all(target_os = "wasi", target_vendor = "wasmer"))'.dependencies]
+libc = { workspace = true }
+
 [target.'cfg(windows)'.dependencies]
 windows-sys = { workspace = true, features = ["Win32_System_Threading"] }
 

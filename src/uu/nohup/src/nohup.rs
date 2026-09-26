@@ -20,6 +20,9 @@ use uucore::{format_usage, show_error};
 #[cfg(unix)]
 #[path = "platform/unix.rs"]
 mod platform;
+#[cfg(all(target_os = "wasi", target_vendor = "wasmer"))]
+#[path = "platform/wasix.rs"]
+mod platform;
 #[cfg(windows)]
 #[path = "platform/windows.rs"]
 mod platform;
@@ -130,10 +133,15 @@ fn find_stdout() -> UResult<File> {
 }
 
 fn try_open_nohup_file(path: &str) -> std::io::Result<File> {
-    let mut opt = std::fs::OpenOptions::new();
-    opt.create(true).append(true);
-    platform::set_output_file_mode(&mut opt);
-    let file = opt.open(path)?;
+    #[cfg(all(target_os = "wasi", target_vendor = "wasmer"))]
+    let file = platform::open_output_file(path)?;
+    #[cfg(not(all(target_os = "wasi", target_vendor = "wasmer")))]
+    let file = {
+        let mut opt = std::fs::OpenOptions::new();
+        opt.create(true).append(true);
+        platform::set_output_file_mode(&mut opt);
+        opt.open(path)?
+    };
 
     show_error!(
         "{}",
